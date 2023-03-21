@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather App</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+        <link rel="stylesheet" href="src/style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>    
+        <video class="video-bg light-video" src="images/background-videos/light-sun.mp4" autoplay loop muted></video>
+        <video class="video-bg dark-video" src="images/background-videos/dark-borealis.mp4" autoplay loop muted></video>
+        <div class="container">
+            <button class="swap">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+            <div class="app-box">
+                <header>
+                    <div class="row">
+                        <div class="col-10 search">
+                            <form class="input-group">
+                                <button class="btn btn-outline-secondary location-icon" type="button">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </button> 
+                                <input type="text" class="form-control search-bar" placeholder="Enter a city...">
+                                <button class="btn btn-outline-secondary search-icon" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-2 temperature-unit">
+                            <button class="btn btn-outline-secondary temperature-unit-icon" type="button">
+                                °F
+                            </button>                            
+                        </div>
+                    </div>                    
+                    <h1></h1>
+                </header>
+                <span class="city-name">Langley</span>
+                <div class="row weather-now">
+                    <div class="col city">
+                        <span class="temperature-cf main-temperature">
+                            <span class="value">-3</span>
+                            <span class="unit">°C</span>
+                        </span>
+                        <span class="max-min">
+                            Max: 
+                            <span class="temperature-cf main-max-temperature">
+                                <span class="value">-3</span>
+                                <span class="unit">°C</span>
+                            </span> 
+                            <br /> 
+                            Min: 
+                            <span class="temperature-cf main-min-temperature">
+                                <span class="value">-3</span>
+                                <span class="unit">°C</span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="col weather-icon-big">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <div class="col details">
+                        <span>
+                        <i class="fa-solid fa-temperature-three-quarters"></i> 
+                            Feels like: 
+                            <span class="temperature-cf feels-like">
+                                <span class="value">-3</span>
+                                <span class="unit">°C</span>
+                            </span>
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-wind"></i> 
+                            Wind: 
+                            <span class="wind">
+                                <span class="value">8</span>
+                                <span class="unit">m/s</span>
+                            </span>
+                        </span>
+                        <span>
+                        <i class="fa-solid fa-droplet"></i> 
+                            Humidity: 
+                            <span class="humidity">
+                                <span class="value">67</span>
+                                <span class="unit">%</span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row week-forecast">
+                    <div class="col-2">
+                        <span class="week-forecast-day">Sat</span>
+                        <i class="fa-solid fa-snowflake weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">-40</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">-30</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="week-forecast-day">Sun</span>
+                        <i class="fa-solid fa-cloud-showers-heavy weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">-20</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">0</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="week-forecast-day">Mon</span>
+                        <i class="fa-solid fa-cloud-showers-heavy weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">7</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">16</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="week-forecast-day">Tue</span>
+                        <i class="fa-solid fa-cloud-showers-heavy weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">25</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">32</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="week-forecast-day">Wed</span>
+                        <i class="fa-solid fa-cloud-showers-heavy weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">39</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">48</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="week-forecast-day">Thu</span>
+                        <i class="fa-solid fa-sun weather-icon-small"></i>
+                        <span class="week-forecast-temp">
+                            <div class="temperature-cf">
+                                <span class="value">10</span>
+                                <span class="unit">°C</span>
+                            </div>
+                            <div class="temperature-cf">
+                                <span class="value">11</span>
+                                <span class="unit">°C</span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                    <footer class="signature">Coded by <a href="https://www.linkedin.com/in/juliananardino/" target="_blank">Juliana Nardino</a></footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6e03930023.js" crossorigin="anonymous"></script>
+        <script src="src/main.js"></script>
+    </body>
+</html>
