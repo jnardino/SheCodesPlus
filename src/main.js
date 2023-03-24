@@ -66,23 +66,27 @@ function setWeather(response) {
     let cityName = document.querySelector(".city-name");
     let searchedCityName = (response.data.name);
     let cityCountry = (response.data.sys.country);
+    let weatherDescription = (response.data.weather[0].description);
     cityName.innerHTML = `${searchedCityName} - ${cityCountry}`;
 
     let temperature = document.querySelector(".main-temperature .value");
     temperature.innerHTML = Math.round(response.data.main.temp);
-
+    
+    let setDescription = document.querySelector(".weather-description");
+    setDescription.innerHTML = weatherDescription;
+    
     let mainMaxTemperature = document.querySelector(".main-max-temperature .value");
     mainMaxTemperature.innerHTML = Math.round(response.data.main.temp_max);
     
     let mainMinTemperature = document.querySelector(".main-min-temperature .value");
     mainMinTemperature.innerHTML = Math.round(response.data.main.temp_min);
-
+    
     let feelsLikeTemperature = document.querySelector(".feels-like .value");
     feelsLikeTemperature.innerHTML = Math.round(response.data.main.feels_like);
-
+    
     let wind = document.querySelector(".wind .value");
     wind.innerHTML = Math.round(response.data.wind.speed);
-
+    
     let humidity = document.querySelector(".humidity .value");
     humidity.innerHTML = Math.round(response.data.main.humidity);
 }

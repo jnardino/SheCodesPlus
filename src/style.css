@@ -125,6 +125,12 @@ video {
     font-size: 46px;
     text-align: center;
 }
+.weather-description {
+    text-transform: capitalize;
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+}
 .max-min {
     display: block;
     font-size: 20px;
