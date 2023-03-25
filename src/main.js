@@ -115,6 +115,35 @@ function setGeoLocation() {
     navigator.geolocation.getCurrentPosition(getPosition);
 }
 
+// 6-day Weather Forecast //
+
+function setSixDayWeather() {
+    let weatherElement = document.querySelector(".six-day-forecast");
+    let forecastHTML = `<div class="row week-forecast">`;
+    let days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
+    days.forEach(function(day) {
+        forecastHTML = forecastHTML +
+        `<div class="col-2">
+            <span class="week-forecast-day">${day}</span>
+                <i class="fa-solid fa-snowflake weather-icon-small"></i>
+                <span class="week-forecast-temp">
+                    <div class="temperature-cf">
+                        <span class="value"></span>
+                        <span class="unit">°C</span>
+                    </div>
+                    <div class="temperature-cf">
+                        <span class="value"></span>
+                        <span class="unit">°C</span>
+                    </div>
+            </span>
+        </div>`;
+    });
+
+    forecastHTML = forecastHTML + `</div>`;
+
+    weatherElement.innerHTML = forecastHTML;
+}
+
 // Celsius to Fahrenheit Convertion //
 
 function convertTemperature() {
@@ -178,6 +207,8 @@ function main() {
     geoLocation.addEventListener("click", setGeoLocation);
 
     setGeoLocation();
+
+    setSixDayWeather()
 }
 
 main();
