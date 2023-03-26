@@ -1,7 +1,7 @@
 // Weather API Global //
 
 const APIKEY = "6d399f2ce89230f16b8c841e6b0a89f7";
-const APIURL = "https://api.openweathermap.org/data/2.5/weather?"
+const APIURL = "https://api.openweathermap.org/data/2.5/"
 
 // Display Current Day & Time //
 
@@ -95,7 +95,7 @@ function showCityName(event) {
     event.preventDefault();
     let citySearch = document.querySelector(".search-bar");
     let city = citySearch.value;
-    let apiUrlCity = `${APIURL}q=${city}&units=metric&appid=${APIKEY}`;
+    let apiUrlCity = `${APIURL}weather?q=${city}&units=metric&appid=${APIKEY}`;
     
     axios.get(apiUrlCity).then(setWeather);
 }
@@ -106,7 +106,7 @@ function getPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     
-    let apiUrlGeo = `${APIURL}lat=${lat}&lon=${lon}&units=metric&appid=${APIKEY}`;
+    let apiUrlGeo = `${APIURL}weather?lat=${lat}&lon=${lon}&units=metric&appid=${APIKEY}`;
     
     axios.get(apiUrlGeo).then(setWeather);
 }
@@ -117,7 +117,7 @@ function setGeoLocation() {
 
 // 6-day Weather Forecast //
 
-function setSixDayWeather() {
+function setSixDayWeatherDisplay() {
     let weatherElement = document.querySelector(".six-day-forecast");
     let forecastHTML = `<div class="row week-forecast">`;
     let days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
@@ -129,40 +129,53 @@ function setSixDayWeather() {
             <i class="fa-solid fa-snowflake weather-icon-small"></i>
             </div>
             <div class="week-forecast-temp">
-                <span class="temperature-cf max-temperature">
-                    <span class="value">27</span>
-                    <span>°</span>
+                <span class="temperature-cf-week max-temperature">
+                    <span class="value">27</span><span class="unit">°</span>
                 </span>
-                <span class="temperature-cf min-temperature">
-                    <span class="value">12</span>
-                    <span">°</span>
+                <span class="temperature-cf-week min-temperature">
+                    <span class="value">12</span><span class="unit">°</span>
                 </span>
             </div>
         </div>`;
     });
 
     forecastHTML = forecastHTML + `</div>`;
-
     weatherElement.innerHTML = forecastHTML;
 }
 
+// getSixDayForecast() {
+
+// }
+
 // Celsius to Fahrenheit Convertion //
+
+function replaceTemperatureUnit(elementList, displayUnit) {
+    for (let i = 0; i < elementList.length; i++) {
+        let temperature = Number(elementList[i].querySelector(".value").innerHTML);
+        let unit = "°";
+        if (!elementList[i].classList.contains("fahrenheit")) {
+            if (displayUnit === true) {
+                unit = "°F";
+            }
+            elementList[i].classList.add("fahrenheit");
+            elementList[i].innerHTML = `<span class="value">${Math.round((temperature * 1.8) + 32)}</span><span class="unit">${unit}</span>`;
+        } else {
+            if (displayUnit === true) {
+                unit = "°C";
+            }
+            elementList[i].classList.remove("fahrenheit");
+            elementList[i].innerHTML = `<span class="value">${Math.round((temperature - 32) / 1.8)}</span><span class="unit">${unit}</span>`;
+        }
+    }
+}
 
 function convertTemperature() {
     let temperatureList = document.querySelectorAll(".temperature-cf");
-    for (let i = 0; i < temperatureList.length; i++) {
-        let temperature = Number(temperatureList[i].querySelector(".value").innerHTML);
-        
-        console.log(temperatureList[i]);
+    let temperatureListWeek = document.querySelectorAll(".temperature-cf-week");
 
-        if (!temperatureList[i].classList.contains("fahrenheit")) {
-            temperatureList[i].classList.add("fahrenheit");
-            temperatureList[i].innerHTML = `<span class="value">${Math.round((temperature * 1.8) + 32)}</span><span class="unit">°F</span>`;
-        } else {
-            temperatureList[i].classList.remove("fahrenheit");
-            temperatureList[i].innerHTML = `<span class="value">${Math.round((temperature - 32) / 1.8)}</span><span class="unit">°C</span>`;
-        }
-    }
+    replaceTemperatureUnit(temperatureList, true);
+    replaceTemperatureUnit(temperatureListWeek, false);
+
 
     let convertButton = document.querySelector(".temperature-unit-icon");
     if (!convertButton.classList.contains("fahrenheit")) {
@@ -210,7 +223,7 @@ function main() {
 
     setGeoLocation();
 
-    setSixDayWeather()
+    setSixDayWeatherDisplay()
 }
 
 main();
