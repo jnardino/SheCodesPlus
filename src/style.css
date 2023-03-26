@@ -160,19 +160,25 @@ video {
 }
 .week-forecast-day {
     font-weight: 500;
-    display: block;
-    margin: 12px;
+    margin: 12px auto;
     text-align: center;
 }
 .week-forecast-temp {
-    display: block;
     font-size: 14px;
-    margin: 12px;
+    margin-top: 12px;
     text-align: center;
 }
 .weather-icon-small {
     color: #4a4a4a;
     font-size: 24px;
+    text-align: center;
+}
+.max-temperature {
+    font-weight: 900;
+    text-align: center;
+}
+.min-temperature {
+    font-weight: 100;
     text-align: center;
 }
 

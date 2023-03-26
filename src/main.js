@@ -124,18 +124,20 @@ function setSixDayWeather() {
     days.forEach(function(day) {
         forecastHTML = forecastHTML +
         `<div class="col-2">
-            <span class="week-forecast-day">${day}</span>
-                <i class="fa-solid fa-snowflake weather-icon-small"></i>
-                <span class="week-forecast-temp">
-                    <div class="temperature-cf">
-                        <span class="value"></span>
-                        <span class="unit">°C</span>
-                    </div>
-                    <div class="temperature-cf">
-                        <span class="value"></span>
-                        <span class="unit">°C</span>
-                    </div>
-            </span>
+            <div class="week-forecast-day">${day}</div>
+            <div> 
+            <i class="fa-solid fa-snowflake weather-icon-small"></i>
+            </div>
+            <div class="week-forecast-temp">
+                <span class="temperature-cf max-temperature">
+                    <span class="value">27</span>
+                    <span>°</span>
+                </span>
+                <span class="temperature-cf min-temperature">
+                    <span class="value">12</span>
+                    <span">°</span>
+                </span>
+            </div>
         </div>`;
     });
 
