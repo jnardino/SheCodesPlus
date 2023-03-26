@@ -5,7 +5,8 @@ const APIURL = "https://api.openweathermap.org/data/2.5/"
 
 // Display Current Day & Time //
 
-function displayDate (date){
+function displayDate(){
+    let date = new Date();
     let dayNumber = date.getDate();
     let year = date.getFullYear();
     
@@ -38,8 +39,11 @@ function displayDate (date){
 
     let timeHour = date.getHours(); 
     let timeMinutes = date.getMinutes();
+
+    console.log("ninja");
     
-    return (`Today is ${weekName}, ${monthName} ${dayNumber} ${year} - ${militaryTo12HClock(timeHour, timeMinutes)}`);
+    let dateLine = document.querySelector("h1");
+    dateLine.innerHTML = `Today is ${weekName}, ${monthName} ${dayNumber} ${year} - ${militaryTo12HClock(timeHour, timeMinutes)}`;
 }
 
 function militaryTo12HClock(hour, minute) {
@@ -143,10 +147,6 @@ function setSixDayWeatherDisplay() {
     weatherElement.innerHTML = forecastHTML;
 }
 
-// getSixDayForecast() {
-
-// }
-
 // Celsius to Fahrenheit Convertion //
 
 function replaceTemperatureUnit(elementList, displayUnit) {
@@ -206,8 +206,7 @@ function main() {
     let darkVideo = document.querySelector(".dark-video");
     darkVideo.playbackRate = 0.7;
 
-    let dateLine = document.querySelector("h1");
-    dateLine.innerHTML = displayDate(new Date());
+    setInterval(displayDate, 1000);
 
     let searchCity = document.querySelector(".search-icon");
     searchCity.addEventListener("click", showCityName);
