@@ -113,7 +113,7 @@ video {
 
 
 .city-name {
-    font-size: 46px;
+    font-size: 40px;
     margin: 0;
     margin-top: 18px;
     padding: 0px;
@@ -122,8 +122,12 @@ video {
     margin-top: 5px;
 }
 .city {
-    font-size: 46px;
+    font-size: 40px;
     text-align: center;
+}
+.main-temperature .unit {
+    font-size: 26px;
+    margin-left: -5px;
 }
 .weather-description {
     text-transform: capitalize;
@@ -135,6 +139,24 @@ video {
     display: block;
     font-size: 20px;
     margin-top: 10px;
+}
+.main-max-temperature {
+    font-weight: 900;
+    text-align: center;
+}
+.main-max-temperature .unit{
+    font-size: 15px;
+    margin-left: -3px;
+    top: -4px;
+}
+.main-min-temperature {
+    font-weight: 100;
+    text-align: center;
+}
+.main-min-temperature .unit{
+    font-size: 15px;
+    margin-left: -3px;
+    top: -4px;
 }
 .weather-icon-big {
     display: flex;
@@ -150,6 +172,10 @@ video {
     text-align: left;
     flex-direction: column;
     align-items: center;
+}
+.details .unit {
+    font-size: 12px;
+    margin-left: -3px;
 }
 
 /* Week Forecast Row */

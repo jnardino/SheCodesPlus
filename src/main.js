@@ -71,7 +71,7 @@ function setWeather(response) {
     let searchedCityName = (response.data.name);
     let cityCountry = (response.data.sys.country);
     let weatherDescription = (response.data.weather[0].description);
-    cityName.innerHTML = `${searchedCityName} - ${cityCountry}`;
+    cityName.innerHTML = `${searchedCityName}`;
 
     let temperature = document.querySelector(".main-temperature .value");
     temperature.innerHTML = Math.round(response.data.main.temp);
