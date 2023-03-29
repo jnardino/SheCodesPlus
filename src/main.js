@@ -69,7 +69,6 @@ function minutesAdjust(minute) {
 function setWeather(response) {
     let cityName = document.querySelector(".city-name");
     let searchedCityName = (response.data.name);
-    let cityCountry = (response.data.sys.country);
     let weatherDescription = (response.data.weather[0].description);
     cityName.innerHTML = `${searchedCityName}`;
 
