@@ -130,6 +130,7 @@ video {
     font-size: 26px;
     margin-left: -5px;
 }
+
 .weather-description {
     text-transform: capitalize;
     display: block;

@@ -143,10 +143,10 @@ function setSixDayWeatherDisplay(response) {
         </div>
         <div class="week-forecast-temp">
         <span class="temperature-cf-week max-temperature">
-        <span class="value">${Math.round(forecastDay.temp.max)}</span><span class="unit">°</span>
+        <span class="value">${Math.round(forecastDay.temp.max)}</span><sup class="unit">°</sup>
         </span>
         <span class="temperature-cf-week min-temperature">
-        <span class="value">${Math.round(forecastDay.temp.min)}</span><span class="unit">°</span>
+        <span class="value">${Math.round(forecastDay.temp.min)}</span><sup class="unit">°</sup>
         </span>
         </div>
         </div>`;
@@ -174,13 +174,17 @@ function replaceTemperatureUnit(elementList, displayUnit) {
                 unit = "°F";
             }
             elementList[i].classList.add("fahrenheit");
-            elementList[i].innerHTML = `<span class="value">${Math.round((temperature * 1.8) + 32)}</span><span class="unit">${unit}</span>`;
+            elementList[i].innerHTML = 
+            `<span class="value">${Math.round((temperature * 1.8) + 32)}</span>
+            <sup class="unit">${unit}</sup>`;
         } else {
             if (displayUnit === true) {
                 unit = "°C";
             }
             elementList[i].classList.remove("fahrenheit");
-            elementList[i].innerHTML = `<span class="value">${Math.round((temperature - 32) / 1.8)}</span><span class="unit">${unit}</span>`;
+            elementList[i].innerHTML = 
+            `<span class="value">${Math.round((temperature - 32) / 1.8)}</span>
+            <sup class="unit">${unit}</sup>`;
         }
     }
 }
