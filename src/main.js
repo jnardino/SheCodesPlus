@@ -1,6 +1,6 @@
 // Weather API Global //
 
-const APIKEY = "6d399f2ce89230f16b8c841e6b0a89f7";
+const APIKEY = "9e0fb79c2f66d0cd0dcf06710976a873";
 const APIURL = "https://api.openweathermap.org/data/2.5/"
 
 // Display Current Day & Time //
@@ -39,8 +39,6 @@ function displayDate(){
 
     let timeHour = date.getHours(); 
     let timeMinutes = date.getMinutes();
-
-    console.log("ninja");
     
     let dateLine = document.querySelector("h1");
     dateLine.innerHTML = `Today is ${weekName}, ${monthName} ${dayNumber} ${year} - ${militaryTo12HClock(timeHour, timeMinutes)}`;
@@ -92,6 +90,8 @@ function setWeather(response) {
     
     let humidity = document.querySelector(".humidity .value");
     humidity.innerHTML = Math.round(response.data.main.humidity);
+
+    getWeekForecast(response.data.coord);
 }
 
 function showCityName(event) {
@@ -102,6 +102,7 @@ function showCityName(event) {
     
     axios.get(apiUrlCity).then(setWeather);
 }
+
 
 // Geolocation //
 
@@ -120,30 +121,46 @@ function setGeoLocation() {
 
 // 6-day Weather Forecast //
 
-function setSixDayWeatherDisplay() {
+function formatWeekDays(timeStamp) {
+    let date = new Date(timeStamp * 1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    return days[day];
+}
+
+function setSixDayWeatherDisplay(response) {
+    let forecast = response.data.daily;
     let weatherElement = document.querySelector(".six-day-forecast");
     let forecastHTML = `<div class="row week-forecast">`;
-    let days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
-    days.forEach(function(day) {
+    forecast.forEach(function(forecastDay, index) {
+        if (index < 6) {
         forecastHTML = forecastHTML +
         `<div class="col-2">
-            <div class="week-forecast-day">${day}</div>
-            <div> 
-            <i class="fa-solid fa-snowflake weather-icon-small"></i>
-            </div>
-            <div class="week-forecast-temp">
-                <span class="temperature-cf-week max-temperature">
-                    <span class="value">27</span><span class="unit">°</span>
-                </span>
-                <span class="temperature-cf-week min-temperature">
-                    <span class="value">12</span><span class="unit">°</span>
-                </span>
-            </div>
+        <div class="week-forecast-day">${formatWeekDays(forecastDay.dt)}</div>
+        <div> 
+        <i class="fa-solid fa-snowflake weather-icon-small"></i>
+        </div>
+        <div class="week-forecast-temp">
+        <span class="temperature-cf-week max-temperature">
+        <span class="value">${Math.round(forecastDay.temp.max)}</span><span class="unit">°</span>
+        </span>
+        <span class="temperature-cf-week min-temperature">
+        <span class="value">${Math.round(forecastDay.temp.min)}</span><span class="unit">°</span>
+        </span>
+        </div>
         </div>`;
+        }
     });
-
+    
     forecastHTML = forecastHTML + `</div>`;
     weatherElement.innerHTML = forecastHTML;
+}
+
+function getWeekForecast(coordinates) {
+    let apiUrlWeekForecast = `${APIURL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${APIKEY}`;
+    
+    axios.get(apiUrlWeekForecast).then(setSixDayWeatherDisplay);
 }
 
 // Celsius to Fahrenheit Convertion //
@@ -220,8 +237,6 @@ function main() {
     geoLocation.addEventListener("click", setGeoLocation);
 
     setGeoLocation();
-
-    setSixDayWeatherDisplay()
 }
 
 main();
