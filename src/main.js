@@ -131,7 +131,8 @@ function showCityName(event) {
     event.preventDefault();
     let citySearch = document.querySelector(".search-bar");
     let city = citySearch.value;
-    let apiUrlCity = `${APIURL}weather?q=${city}&units=metric&appid=${APIKEY}`;
+
+    let apiUrlCity = `${APIURL}weather?q=${city}&units=${getTemperatureUnit()}&appid=${APIKEY}`;
     
     axios.get(apiUrlCity).then(setWeather);
 }
@@ -143,7 +144,7 @@ function getPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     
-    let apiUrlGeo = `${APIURL}weather?lat=${lat}&lon=${lon}&units=metric&appid=${APIKEY}`;
+    let apiUrlGeo = `${APIURL}weather?lat=${lat}&lon=${lon}&units=${getTemperatureUnit()}&appid=${APIKEY}`;
     
     axios.get(apiUrlGeo).then(setWeather);
 }
@@ -167,7 +168,11 @@ function setSixDayWeatherDisplay(response) {
    
     let weatherElement = document.querySelector(".six-day-forecast");
     let forecastHTML = `<div class="row week-forecast">`;
-   
+    let unitComplement = "";
+
+    if (getTemperatureUnit() === "imperial")
+        unitComplement = "fahrenheit";
+
     forecast.forEach(function(forecastDay, index) {
         if (index < 6) {
             forecastHTML = forecastHTML +
@@ -175,10 +180,10 @@ function setSixDayWeatherDisplay(response) {
                     <div class="week-forecast-day">${formatWeekDays(forecastDay.dt)}</div>
                     <div class="week-forecast-icon">${getWeatherIcons(forecastDay.weather[0].icon)}</div>
                     <div class="week-forecast-temp">
-                        <span class="temperature-cf-week max-temperature">
+                        <span class="temperature-cf-week max-temperature ${unitComplement}">
                             <span class="value">${Math.round(forecastDay.temp.max)}</span><sup class="unit">°</sup>
                         </span>
-                        <span class="temperature-cf-week min-temperature">
+                        <span class="temperature-cf-week min-temperature ${unitComplement}">
                             <span class="value">${Math.round(forecastDay.temp.min)}</span><sup class="unit">°</sup>
                         </span>
                     </div>
@@ -191,12 +196,18 @@ function setSixDayWeatherDisplay(response) {
 }
 
 function getWeekForecast(coordinates) {
-    let apiUrlWeekForecast = `${APIURL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${APIKEY}`;
+    let apiUrlWeekForecast = `${APIURL}onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=${getTemperatureUnit()}&appid=${APIKEY}`;
     
     axios.get(apiUrlWeekForecast).then(setSixDayWeatherDisplay);
 }
 
 // Celsius to Fahrenheit Convertion //
+
+function getTemperatureUnit() {
+    let isFahrenheit = document.querySelector(".temperature-unit-icon").classList.contains("fahrenheit");
+
+    return isFahrenheit ? "imperial" : "metric";
+}
 
 function replaceTemperatureUnit(elementList, displayUnit) {
     for (let i = 0; i < elementList.length; i++) {
