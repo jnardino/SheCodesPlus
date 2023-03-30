@@ -64,26 +64,26 @@ function minutesAdjust(minute) {
 
 // Search Engine + Weather API//
 
-function getWeatherIcons(icon) {
+function getWeatherIcons(icon, iconSize) {
     let iconMap = {
-        "01d":`<i class="fa-solid fa-sun"></i>`,
-        "01n":`<i class="fa-solid fa-moon"></i>`,
-        "02d":`<i class="fa-solid fa-cloud-sun"></i>`,
-        "02n":`<i class="fa-solid fa-cloud-moon"></i>`,
-        "03d":`<i class="fa-solid fa-cloud"></i>`,
-        "03n":`<i class="fa-solid fa-cloud"></i>`,
-        "04d":`<i class="fa-solid fa-cloud"></i>`,
-        "04n":`<i class="fa-solid fa-cloud"></i>`,
-        "09d":`<i class="fa-solid fa-cloud-showers-heavy"></i>`,
-        "09n":`<i class="fa-solid fa-cloud-showers-heavy"></i>`,
-        "10d":`<i class="fa-solid fa-cloud-sun-rain"></i>`,
-        "10n":`<i class="fa-solid fa-cloud-moon-rain"></i>`,
-        "11d":`<i class="fa-solid fa-cloud-bolt"></i>`,
-        "11n":`<i class="fa-solid fa-cloud-bolt"></i>`,
-        "13d":`<i class="fa-solid fa-snowflake"></i>`,
-        "13n":`<i class="fa-solid fa-snowflake"></i>`,
-        "50d":`<i class="fa-solid fa-smog"></i>`,
-        "50n":`<i class="fa-solid fa-smog"></i>`,
+        "01d":`<i class="${iconSize} fa-solid fa-sun"></i>`,
+        "01n":`<i class="${iconSize} fa-solid fa-moon"></i>`,
+        "02d":`<i class="${iconSize} fa-solid fa-cloud-sun"></i>`,
+        "02n":`<i class="${iconSize} fa-solid fa-cloud-moon"></i>`,
+        "03d":`<i class="${iconSize} fa-solid fa-cloud"></i>`,
+        "03n":`<i class="${iconSize} fa-solid fa-cloud"></i>`,
+        "04d":`<i class="${iconSize} fa-solid fa-cloud"></i>`,
+        "04n":`<i class="${iconSize} fa-solid fa-cloud"></i>`,
+        "09d":`<i class="${iconSize} fa-solid fa-cloud-showers-heavy"></i>`,
+        "09n":`<i class="${iconSize} fa-solid fa-cloud-showers-heavy"></i>`,
+        "10d":`<i class="${iconSize} fa-solid fa-cloud-sun-rain"></i>`,
+        "10n":`<i class="${iconSize} fa-solid fa-cloud-moon-rain"></i>`,
+        "11d":`<i class="${iconSize} fa-solid fa-cloud-bolt"></i>`,
+        "11n":`<i class="${iconSize} fa-solid fa-cloud-bolt"></i>`,
+        "13d":`<i class="${iconSize} fa-solid fa-snowflake"></i>`,
+        "13n":`<i class="${iconSize} fa-solid fa-snowflake"></i>`,
+        "50d":`<i class="${iconSize} fa-solid fa-smog"></i>`,
+        "50n":`<i class="${iconSize} fa-solid fa-smog"></i>`,
     };
 
     if (iconMap[icon] === undefined) {
@@ -123,7 +123,7 @@ function setWeather(response) {
     getWeekForecast(response.data.coord);
 
     let mainIcon = document.querySelector(".weather-icon-big");
-    mainIcon.innerHTML = getWeatherIcons(response.data.weather[0].icon);
+    mainIcon.innerHTML = getWeatherIcons(response.data.weather[0].icon,"weather-icon-big");
 
 }
 
@@ -178,7 +178,7 @@ function setSixDayWeatherDisplay(response) {
             forecastHTML = forecastHTML +
                 `<div class="col-2">
                     <div class="week-forecast-day">${formatWeekDays(forecastDay.dt)}</div>
-                    <div class="week-forecast-icon">${getWeatherIcons(forecastDay.weather[0].icon)}</div>
+                    <div class="week-forecast-icon">${getWeatherIcons(forecastDay.weather[0].icon, "weather-icon-small")}</div>
                     <div class="week-forecast-temp">
                         <span class="temperature-cf-week max-temperature ${unitComplement}">
                             <span class="value">${Math.round(forecastDay.temp.max)}</span><sup class="unit">°</sup>
